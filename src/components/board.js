@@ -1,7 +1,13 @@
 import React from "react";
 import Cell from "./cell";
 
-const Board = ({ board, onCellClick, gameOver, victory }) => (
+const Board = ({
+  board,
+  onCellClick,
+  gameOver,
+  victory,
+  handleCellRightClick,
+}) => (
   <div
     style={{
       display: "grid",
@@ -17,6 +23,10 @@ const Board = ({ board, onCellClick, gameOver, victory }) => (
           value={cell.value}
           onClick={() => onCellClick(rowIndex, colIndex)}
           revealed={cell.revealed}
+          handleCellRightClick={handleCellRightClick}
+          board={board}
+          rowIndex={rowIndex}
+          colIndex={colIndex}
         />
       ))
     )}

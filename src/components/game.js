@@ -141,6 +141,21 @@ const Game = () => {
     setBoard(newBoard);
   };
 
+  const handleCellRightClick = (event, rowIndex, colIndex) => {
+    console.log(event);
+    event.preventDefault(); // Prevent default context menu
+    // Handle right-click logic, e.g., placing a flag
+    if (gameOver || victory || board[rowIndex][colIndex].revealed) {
+      return;
+    }
+
+    const newBoard = [...board];
+    const cell = newBoard[rowIndex][colIndex];
+    cell.flagged = !cell.flagged;
+
+    setBoard(newBoard);
+  };
+
   const generateNewBoardWithDiffilcuty = (difficulty) => {
     let bombs = 10;
     if (difficulty === "INTERMEDIO") {
@@ -153,9 +168,6 @@ const Game = () => {
     setGameOver(false);
     setVictory(false);
   };
-
-  console.log(modalOpen);
-  console.log(victory);
 
   return (
     <div
@@ -209,6 +221,9 @@ const Game = () => {
         onCellClick={handleCellClick}
         gameOver={gameOver}
         victory={victory}
+        handleCellRightClick={(event, rowIndex, colIndex) => {
+          handleCellRightClick(event, rowIndex, colIndex);
+        }}
       />
       {gameOver && (
         <Modal open={modalOpen} onClose={() => handleClose}>
@@ -232,14 +247,12 @@ const Game = () => {
             </Box>
             <Box>
               <Typography textAlign={"center"} fontSize={20}>
-                Has Ganado :D
+                Has Ganado :D Superaste el nivel {difficulty}
               </Typography>
             </Box>
           </CustomBox>
         </Modal>
       )}
-
-      {victory && <Typography>Has ganado :D</Typography>}
     </div>
   );
 };
