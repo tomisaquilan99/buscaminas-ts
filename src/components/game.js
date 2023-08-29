@@ -71,8 +71,47 @@ const Game = () => {
       return; // Evitar hacer clic en una celda ya revelada
     }
 
+    if (!board.some((row) => row.some((cell) => cell.revealed))) {
+      // Es el primer clic, reorganizar las bombas
+      const newBoard = generateBoard(board.length, board[0].length, 10);
+      newBoard[rowIndex][colIndex].value = 0; // Asegurarse de que la celda del primer clic no tenga bomba
+      setBoard(newBoard);
+    }
+
+    const revealAdjacentCells = (row, col) => {
+      if (
+        row < 0 ||
+        row >= board.length ||
+        col < 0 ||
+        col >= board[0].length ||
+        board[row][col].revealed
+      ) {
+        return;
+      }
+
+      const newBoard = [...board]; // Declarar newBoard aquí
+      newBoard[row][col].revealed = true;
+
+      if (board[row][col].value === 0) {
+        const adjacentCells = [
+          [-1, 0],
+          [1, 0],
+          [0, -1],
+          [0, 1],
+        ];
+
+        adjacentCells.forEach(([dx, dy]) => {
+          revealAdjacentCells(row + dx, col + dy);
+        });
+      }
+      setBoard(newBoard); // Actualizar el estado después de revelar la celda
+    };
+
+    revealAdjacentCells(rowIndex, colIndex);
+
     const newBoard = [...board];
     newBoard[rowIndex][colIndex].revealed = true;
+    setBoard(newBoard);
 
     const allNonBombCellsRevealed = newBoard
       .flat()
