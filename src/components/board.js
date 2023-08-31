@@ -7,6 +7,7 @@ const Board = ({
   gameOver,
   victory,
   handleCellRightClick,
+  difficulty,
 }) => (
   <div
     style={{
@@ -28,6 +29,7 @@ const Board = ({
           board={board}
           rowIndex={rowIndex}
           colIndex={colIndex}
+          difficulty={difficulty}
         />
       ))
     )}

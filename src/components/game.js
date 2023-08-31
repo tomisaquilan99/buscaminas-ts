@@ -217,7 +217,7 @@ const Game = () => {
       }}
     >
       <h1>Buscaminas</h1>
-      <Button
+      <CustomReplayButton
         onClick={() => {
           if (difficulty === "PRINCIPIANTE") {
             setBoard(generateBoard(8, 8, 10));
@@ -229,29 +229,32 @@ const Game = () => {
         }}
       >
         Reiniciar juego
-      </Button>
+      </CustomReplayButton>
       <Stack flexDirection={"row"} margin={2} gap={5}>
-        <Button
+        <CustomButton
           onClick={() => {
             generateNewBoardWithDiffilcuty("PRINCIPIANTE");
           }}
+          difficulty={difficulty}
         >
           Nivel principiante
-        </Button>
-        <Button
+        </CustomButton>
+        <CustomButton
           onClick={() => {
             generateNewBoardWithDiffilcuty("INTERMEDIO");
           }}
+          difficulty={difficulty}
         >
           Nivel intermedio
-        </Button>
-        <Button
+        </CustomButton>
+        <CustomButton
           onClick={() => {
             generateNewBoardWithDiffilcuty("DIFICIL");
           }}
+          difficulty={difficulty}
         >
           Nivel dificil
-        </Button>
+        </CustomButton>
       </Stack>
 
       <Board
@@ -262,6 +265,7 @@ const Game = () => {
         handleCellRightClick={(event, rowIndex, colIndex) => {
           handleCellRightClick(event, rowIndex, colIndex);
         }}
+        difficulty={difficulty}
       />
       {gameOver && (
         <Modal open={modalOpen} onClose={() => handleClose}>
@@ -310,3 +314,31 @@ const CustomBox = styled(Box)({
   boxShadow: 24,
   p: 4,
 });
+
+const CustomButton = styled(Button)(({ theme, difficulty }) => ({
+  width: 150,
+  fontWeight: 700,
+  "&:nth-child(1)": {
+    color: "#0046FF", // Primer botón
+    background:
+      "linear-gradient(to right, rgba(41,184,229,1) 0%, rgba(129,209,235,1) 50%, rgba(41,184,229,1) 100%)",
+  },
+  "&:nth-child(2)": {
+    color: "#FF3A00", // Segundo botón
+    background:
+      "linear-gradient(to right, rgba(241,231,103,1) 0%, rgba(254,182,69,1) 100%)",
+  },
+  "&:nth-child(3)": {
+    color: "#FFFFFF", // Tercer botón
+    background:
+      "linear-gradient(to right, rgba(240,39,39,1) 0%, rgba(240,39,39,1) 20%, rgba(237,21,118,1) 40%, rgba(237,21,118,1) 50%, rgba(237,21,118,1) 60%, rgba(240,39,39,1) 80%, rgba(240,39,39,1) 100%)",
+  },
+}));
+
+const CustomReplayButton = styled(Button)(({ theme, difficulty }) => ({
+  width: 150,
+  color: "#000000",
+  fontWeight: 700,
+  background:
+    "linear-gradient(to right, rgba(92,242,127,1) 0%, rgba(53,250,122,1) 100%)",
+}));
