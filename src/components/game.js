@@ -55,7 +55,7 @@ const generateBoard = (rows, cols, numBombs) => {
 };
 
 const Game = () => {
-  const [board, setBoard] = useState(generateBoard(10, 10, 10));
+  const [board, setBoard] = useState(generateBoard(8, 8, 10));
   const [difficulty, setDifficulty] = useState("PRINCIPIANTE");
   const [gameOver, setGameOver] = useState(false);
   const [victory, setVictory] = useState(false);
