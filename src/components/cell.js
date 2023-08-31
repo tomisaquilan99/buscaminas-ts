@@ -15,8 +15,9 @@ const Cell = ({
     onClick={onClick}
     tabIndex={-1}
     style={{
-      width: "30px",
-      height: "30px",
+      minWidth: 0,
+      maxWidth: "40px",
+      height: "40px",
       fontSize: "16px",
       padding: "0", // Añadimos esto para eliminar el relleno interno del botón
     }}

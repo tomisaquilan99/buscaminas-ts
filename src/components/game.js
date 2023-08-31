@@ -71,13 +71,6 @@ const Game = () => {
       return; // Evitar hacer clic en una celda ya revelada
     }
 
-    if (!board.some((row) => row.some((cell) => cell.revealed))) {
-      // Es el primer clic, reorganizar las bombas
-      const newBoard = generateBoard(board.length, board[0].length, 10);
-      newBoard[rowIndex][colIndex].value = 0; // Asegurarse de que la celda del primer clic no tenga bomba
-      setBoard(newBoard);
-    }
-
     const revealAdjacentCells = (row, col) => {
       if (
         row < 0 ||
@@ -197,12 +190,18 @@ const Game = () => {
 
   const generateNewBoardWithDiffilcuty = (difficulty) => {
     let bombs = 10;
+    let boardRows = 8;
+    let boardCols = 8;
     if (difficulty === "INTERMEDIO") {
-      bombs = 30;
+      bombs = 40;
+      boardRows = 16;
+      boardCols = 16;
     } else if (difficulty === "DIFICIL") {
-      bombs = 50;
+      bombs = 99;
+      boardRows = 16;
+      boardCols = 30;
     }
-    setBoard(generateBoard(10, 10, bombs));
+    setBoard(generateBoard(boardRows, boardCols, bombs));
     setDifficulty(difficulty);
     setGameOver(false);
     setVictory(false);
@@ -221,10 +220,10 @@ const Game = () => {
       <Button
         onClick={() => {
           if (difficulty === "PRINCIPIANTE") {
-            setBoard(generateBoard(10, 10, 10));
+            setBoard(generateBoard(8, 8, 10));
           } else if (difficulty === "INTERMEDIO") {
-            setBoard(generateBoard(10, 10, 30));
-          } else setBoard(generateBoard(10, 10, 50));
+            setBoard(generateBoard(16, 16, 40));
+          } else setBoard(generateBoard(16, 30, 99));
           setGameOver(false);
           setVictory(false);
         }}

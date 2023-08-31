@@ -11,9 +11,10 @@ const Board = ({
   <div
     style={{
       display: "grid",
-      gridTemplateColumns: `repeat(${board[0].length}, 60px)`,
-      columnGap: 3,
+      gridTemplateColumns: `repeat(${board[0].length}, 40px)`,
+      columnGap: 0,
       pointerEvents: gameOver || victory ? "none" : "auto",
+      marginBottom: 50,
     }}
   >
     {board.map((row, rowIndex) =>
